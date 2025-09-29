@@ -1,0 +1,32 @@
+from flask import Flask, render_template,url_for
+
+
+app = Flask(__name__)
+
+@app.route("/")
+def dashboard():
+    """ page dashboard """
+    return render_template("Dashboard.html")
+
+
+@app.route("/courses")
+def courses():
+    """ page Courses """
+    return render_template("Courses.html")
+
+
+@app.route("/simulation")
+def simulation():
+    """ page Simulation """
+    return render_template("Simulation.html")
+
+
+@app.route("/history")
+def history():
+    """ page History """
+    return render_template("History.html")
+
+
+
+if __name__ == "__main__":
+    app.run(debug=True, port=8000, host="0.0.0.0", use_reloader=True)
