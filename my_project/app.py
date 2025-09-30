@@ -4,6 +4,11 @@ from flask import Flask, render_template,url_for
 app = Flask(__name__)
 
 @app.route("/")
+def home():
+    """ page home """
+    return render_template("Home.html")
+
+@app.route("/dashboard")
 def dashboard():
     """ page dashboard """
     return render_template("Dashboard.html")

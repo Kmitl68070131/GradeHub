@@ -142,32 +142,33 @@
 
     <nav class="navbar">
         <div class="nav-left">
-            <a href="#" class="logo">
+            <a href="{{url_for('home')}}" class="logo">
                 <i class="fas fa-graduation-cap"></i>
                 <span>Grade Calculator Pro</span>
             </a>
             
             <ul class="nav-menu">
+
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-th"></i>
-                        Dashboard
+                    <a href="{{ url_for('dashboard') }}" class="nav-link">
+                        <i class="fas fa-th"></i> Dashboard
                     </a>
                 </li>
+
                 <li class="nav-item">
-                    <a href="#" class="nav-link active">
+                    <a href="{{url_for('courses')}}" class="nav-link active">
                         <i class="fas fa-book"></i>
                         Courses
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{url_for('simulation')}}" class="nav-link">
                         <i class="far fa-calendar"></i>
                         Simulation
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{url_for('history')}}" class="nav-link">
                         <i class="fas fa-history"></i>
                         History
                     </a>
@@ -182,12 +183,12 @@
             </div>
         </div>
     </nav>
+    by smartheart
+
+    {% block body %}
+
+    {% endblock %}
 
 
-
-    <div style="padding: 2rem;">
-        <h1>Welcome to Grade Calculator Pro</h1>
-        <p style="margin-top: 1rem; color: #666;">เลือกเมนูด้านบนเพื่อเริ่มใช้งาน</p>
-    </div>
 </body>
 </html>
