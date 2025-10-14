@@ -22,10 +22,5 @@ def simulation():
     """ page Simulation """
     return render_template("Simulation.html")
 
-@app.route("/history")
-def history():
-    """ page History """
-    return render_template("History.html")
-
 if __name__ == "__main__":
     app.run(debug=True, port=8000, host="0.0.0.0", use_reloader=True)
