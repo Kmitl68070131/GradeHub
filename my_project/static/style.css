@@ -1,0 +1,39 @@
+.space {
+    padding-left: 30px;
+}
+
+.gpa-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 400px;
+    margin: 20px 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.gpa-content {
+    flex: 1;
+}
+
+.gpa-label {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.gpa-value {
+    font-size: 48px;
+    font-weight: bold;
+    color: #1a1a1a;
+    line-height: 1;
+}
+
+.gpa-max {
+    color: #999;
+    font-size: 14px;
+    margin-top: 4px;
+}

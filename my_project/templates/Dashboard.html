@@ -1,19 +1,37 @@
 {% extends 'base.html'%}
 {% block content %}
 <title>Dashboard</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 {% endblock %}
 
 {% block body %}
 
 <br><br>
-<style>
-    .space {
-        padding-left: 30px;
-    }
-</style>
 <div class="space">
     <h1>ยินดีต้อนรับสู่แดชบอร์ด</h1>
     ภาพรวมผลการเรียนของคุณ
 </div>
+
+<table>
+    <div class="gpa-card">
+        <div class="gpa-content">
+            <div class="gpa-label">GPA ทั้งหมด</div>
+            <div>
+                <span class="gpa-value">3.25</span>
+            </div>
+            <div class="gpa-max">จาก 4.00</div>
+        </div>
+    </div>
+
+    <div class="gpa-card">
+        <div class="gpa-content">
+            <div class="gpa-label">GPA ทั้งหมด</div>
+            <div>
+                <span class="gpa-value">3.25</span>
+            </div>
+            <div class="gpa-max">จาก 4.00</div>
+        </div>
+    </div>
+</table>
 
 {% endblock %}
