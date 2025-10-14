@@ -9,13 +9,28 @@
 
 <br><br>
 <style>
-    .space {
-        padding-left: 30px;
+.space {
+    padding-left: 30px;
+    margin-left: 50px;
+
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeIn 1.25s ease forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0px)
     }
+}
 </style>
-<div class="space">
+<div class="space fade-in">
     <h1>จัดการรายวิชา</h1>
-    จัดการข้อมูลของคุณพร้อมการติดตามผลการเรียน
+    <h1 style="color: grey; font-size:medium; font-weight: lighter;">จัดการข้อมูลของคุณพร้อมการติดตามผลการเรียน</h1>
 </div>
 {% endblock %}
 

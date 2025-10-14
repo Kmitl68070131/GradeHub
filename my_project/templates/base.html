@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
     {% block content %}
 
     {% endblock %}
@@ -33,23 +34,26 @@
         .nav-left {
             display: flex;
             align-items: center;
-            gap: 2rem;
+            gap: 5rem;
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.5rem;
             padding: 1rem 1.5rem;
-            background: #2d4a9e;
-            color: white;
+            color: #000000;
             text-decoration: none;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1.25rem;
         }
 
         .logo i {
-            font-size: 1.5rem;
+            font-size: 1rem;
+            color: snow;
+            background-color: #2d4a9e;
+            padding: 0.5rem 0.5rem;
+            border-radius: 100% 100%;
         }
 
         .nav-menu {
@@ -67,12 +71,11 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 1rem 1.25rem;
+            padding: 0.5rem 1.25rem;
             text-decoration: none;
             color: #666;
             font-weight: 500;
             transition: all 0.3s ease;
-            border-radius: 4px;
         }
 
         .nav-link i {
@@ -84,10 +87,12 @@
             color: #2d4a9e;
         }
 
-        .nav-link.active {
-            color: #666;
-        }
 
+        .nav-link.active {
+            color: #ffffff;
+            background-color: #2d4a9e;
+        }
+    
         .nav-right {
             display: flex;
             align-items: center;
@@ -135,7 +140,39 @@
             .logo span {
                 display: none;
             }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-top: 0.5rem;
+            z-index: 999;
+            min-width: 150px;
+            overflow: hidden;
         }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            text-decoration: none;
+            color: #333;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #f0f0f0;
+         }
+        
+        .create-by {
+            margin-bottom: 0;
+        }
+
+    }
     </style>
 </head>
 <body>
@@ -146,27 +183,29 @@
                 <i class="fas fa-graduation-cap"></i>
                 <span>GradeHub</span>
             </a>
+            
 
             <ul class="nav-menu">
 
                 <li class="nav-item">
-                    <a href="{{ url_for('dashboard') }}" class="nav-link">
+                    <a href="{{ url_for('dashboard') }}" class="nav-link {% if request.endpoint == 'dashboard' %}active{% endif %}">
                         <i class="fas fa-th"></i> Dashboard
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{url_for('courses')}}" class="nav-link active">
+                    <a href="{{ url_for('courses') }}" class="nav-link {% if request.endpoint == 'courses' %}active{% endif %}">
                         <i class="fas fa-book"></i>
                         Courses
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{url_for('simulation')}}" class="nav-link">
+                    <a href="{{ url_for('simulation') }}" class="nav-link {% if request.endpoint == 'simulation' %}active{% endif %}">
                         <i class="far fa-calendar"></i>
                         Simulation
                     </a>
             </ul>
+            
         </div>
         
         <div class="nav-right">
@@ -176,12 +215,15 @@
             </div>
         </div>
     </nav>
-    by smartheart
 
+    <p class="create-by" style="color: #666;">by smartheart</p>
+    
+    
     {% block body %}
-
+    
     {% endblock %}
-
+    
     <link rel="stylesheet" href="{{ url_for('static', filename='script.js') }}">
+    
 </body>
 </html>

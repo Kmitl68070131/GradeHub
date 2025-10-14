@@ -1,17 +1,59 @@
 {% extends 'base.html'%}
 {% block content %}
-<title>Home</title>
+<title>GradeHub</title>
 {% endblock %}
 
 
 {% block body %}
-<style>.space {
-    padding-left: 30px;
+
+<style>
+    
+.space {
+    justify-items: center;
+    padding: 0%;
+    margin-top: 10%;
 }
+.container {
+    align-items: center;
+    display: flex;
+    font-size:x-large;
+}
+
+.space i{
+    font-size:100px; color:black; 
+    display: flex;
+    transition: 0.2s;
+}
+
+.space i:hover {
+    opacity: 90%;
+    color: rgb(45, 74, 158);
+    transition: 0.2s;
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(0px);
+    animation: fadeIn 1.25s ease forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(20px)
+    }
+}
+
 </style>
 <div class="space">
-    <h1>Welcome to GradeHub</h1>
-    <p style="margin-top: 1rem; color: #666;">เลือกเมนูด้านบนเพื่อเริ่มใช้งาน</p>
+    <i class="fas fa-graduation-cap fade-in"></i>
+    <div class="container fade-in">
+        <h1>Welcome to </h1>
+        <h1 style="color: rgb(45, 74, 158)">&nbsp;GradeHub</h1>
+        <h1>.</h1>
+    </div>
+        <br>
+        <p class="fade-in" style=" color: #666;">ให้เราช่วยคำนวณผลการเรียนของคุณ</p>
 </div>
 
 {% endblock %}

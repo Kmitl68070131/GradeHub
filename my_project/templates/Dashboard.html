@@ -7,31 +7,113 @@
 {% block body %}
 
 <br><br>
-<div class="space">
-    <h1>ยินดีต้อนรับสู่แดชบอร์ด</h1>
-    ภาพรวมผลการเรียนของคุณ
+<style>
+.allitems {
+    margin-left: 50px;
+}
+.fade-in {
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeIn 1.25s ease forwards;
+}
+
+@keyframes fadeIn {
+        to {
+        opacity: 1;
+        transform: translateY(0px)
+    }
+}
+
+.fade-in-2 {
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeIn 1.55s ease forwards;
+}
+
+@keyframes fadeIn {
+        to {
+        opacity: 1;
+        transform: translateY(0px)
+    }
+}
+
+.gpa-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 0;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.gpa-value-with-icon {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 170px;
+}
+
+.gpa-value-with-icon i {
+    font-size: 10px;
+    margin-left: auto;
+    color: #ffffff;
+    border-radius: 12px 12px;
+    padding: 10px 10px;
+}
+</style>
+<div class="allitems">
+    <div class="space fade-in">
+        <h1 style="margin-bottom: 5px;">ยินดีต้อนรับสู่แดชบอร์ด</h1>
+        <h1 style="color: grey; font-size:medium; font-weight: lighter;">ภาพรวมผลการเรียนของคุณ</h1>
+    </div>
+
+    <table>
+    <div class="gpa-container">
+        <div class="gpa-card fade-in-2">
+            <div class="gpa-content">
+                <div class="gpa-label">GPA ปัจจุบัน</div>
+                <div class="gpa-value-with-icon">
+                    <span class="gpa-value">0</span>
+                    <i class="fa fa-bar-chart" style="font-size: 30px; margin-left:50; font-weight: lighter; background-color:rgb(45, 74, 158);"></i>
+                </div>
+                <div class="gpa-max">จาก 4.00</div>
+            </div>
+        </div>
+
+        <div class="gpa-card fade-in-2">
+            <div class="gpa-content">
+                <div class="gpa-label">หน่วยกิตรวม</div>
+                <div class="gpa-value-with-icon">
+                    <span class="gpa-value">0</span>
+                    <i class="fa fa-calendar" style="font-size: 30px; margin-left:50; font-weight: lighter; background-color:rgb(45, 74, 158);"></i>
+                </div>
+                <div class="gpa-max">จากทั้งหมด 6 หน่วยกิต</div>
+            </div>
+        </div>
+
+        <div class="gpa-card fade-in-2">
+            <div class="gpa-content">
+                <div class="gpa-label">รายวิชาที่ผ่าน</div>
+                <div class="gpa-value-with-icon">
+                    <span class="gpa-value">0</span>
+                    <i class="far fa-check-circle" style="font-size: 30px; margin-left:50; font-weight: lighter; background-color: rgb(96, 218, 110);"></i>
+                </div>
+                <div class="gpa-max">จากทั้งหมด 6 วิชา</div>
+            </div>
+        </div>
+
+        <div class="gpa-card fade-in-2">
+            <div class="gpa-content">
+                <div class="gpa-label">รายวิชาที่ตก</div>
+                <div class="gpa-value-with-icon">
+                    <span class="gpa-value">6</span>
+                    <i class="far fa-times-circle" style="font-size: 30px; margin-left:50; font-weight: lighter; background-color: rgb(255, 61, 61);"></i>
+                </div>
+                <div class="gpa-max">จากทั้งหมด 6 หน่วยกิต</div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<table>
-    <div class="gpa-card">
-        <div class="gpa-content">
-            <div class="gpa-label">GPA ทั้งหมด</div>
-            <div>
-                <span class="gpa-value">3.25</span>
-            </div>
-            <div class="gpa-max">จาก 4.00</div>
-        </div>
-    </div>
-
-    <div class="gpa-card">
-        <div class="gpa-content">
-            <div class="gpa-label">GPA ทั้งหมด</div>
-            <div>
-                <span class="gpa-value">3.25</span>
-            </div>
-            <div class="gpa-max">จาก 4.00</div>
-        </div>
-    </div>
 </table>
 
 {% endblock %}
