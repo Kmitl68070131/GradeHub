@@ -1,37 +1,42 @@
 {% extends 'base.html'%}
+
 {% block content %}
-<title>Courses</title>
+<title>Courses - GradeHub</title>
 {% endblock %}
 
-
-
-{% block body %}
-
-<br><br>
-<style>
-.space {
-    padding-left: 30px;
-    margin-left: 50px;
-
-}
-
-.fade-in {
-    opacity: 0;
-    transform: translateY(-20px);
-    animation: fadeIn 1.25s ease forwards;
-}
-
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-        transform: translateY(0px)
-    }
-}
-</style>
+{% block style %}
 <div class="space fade-in">
     <h1>จัดการรายวิชา</h1>
-    <h1 style="color: grey; font-size:medium; font-weight: lighter;">จัดการข้อมูลของคุณพร้อมการติดตามผลการเรียน</h1>
+    <h1 style="color: #999; font-size: 16px; font-weight: 400;">จัดการข้อมูลของคุณพร้อมการติดตามผลการเรียน</h1>
 </div>
 {% endblock %}
 
+{% block body %}
+<div class="courses-content">
+    <h2>ข้อมูลรายวิชาใหม่ :</h2>
+    <div id="add-courses-section" class="add-courses-section">
+        <div id="course" class="course">
+            <input type="text" id="txtName" class="course-input" placeholder="ชื่อรายวิชา">
+        </div>
+        <div id="kit" class="kit">
+            <input type="number" id="txtCredit" class="course-input" placeholder="หน่วยกิต" min="0" step="1">
+        </div>
+        <div id="score" class="score">
+            <input type="number" id="txtScore" class="course-input" placeholder="คะแนนที่ได้" min="0" max="100" step="0.01">
+        </div>
+    </div>
+    <input type="button" class="add-course" value="เพิ่มข้อมูลรายวิชา" onclick="AddCourse()">
+</div>
 
+<div class="course-list" id="list">
+    <h2>รายการวิชาทั้งหมด</h2>
+    <div id="container">
+        <div class="empty">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+            </svg>
+            <p>ยังไม่มีรายวิชา กรุณาเพิ่มรายวิชาใหม่</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

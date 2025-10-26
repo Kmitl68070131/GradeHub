@@ -128,7 +128,7 @@
             text-decoration: none;
             color: #333;
             font-size: 0.95rem;
-            transition: background 0.2s;
+            transition: background 0.2s,color 0.2s;
         }
 
         .dropdown-menu a:hover {
@@ -179,11 +179,15 @@
     <p class="create-by" style="color: #666;">by smartheart</p>
     
     
+    {% block style %}
+    
+    {% endblock %}
+
     {% block body %}
     
     {% endblock %}
-    
-    <link rel="stylesheet" href="{{ url_for('static', filename='script.js') }}">
-    
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
 </body>
 </html>

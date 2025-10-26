@@ -4,8 +4,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 {% endblock %}
 
-{% block body %}
-
+{% block style %}
 <br><br>
 <style>
 .allitems {
@@ -61,6 +60,11 @@
     padding: 10px 10px;
 }
 </style>
+
+
+{% endblock %}
+
+{% block body %}
 <div class="allitems">
     <div class="space fade-in">
         <h1 style="margin-bottom: 5px;">ยินดีต้อนรับสู่แดชบอร์ด</h1>
@@ -115,5 +119,4 @@
     </div>
 </div>
 </table>
-
 {% endblock %}
