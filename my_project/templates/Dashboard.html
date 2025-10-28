@@ -60,9 +60,9 @@
     padding: 10px 10px;
 }
 </style>
-
-
 {% endblock %}
+
+
 
 {% block body %}
 <div class="allitems">
@@ -91,7 +91,7 @@
                     <span class="gpa-value">0</span>
                     <i class="fa fa-calendar" style="font-size: 30px; margin-left:50; font-weight: lighter; background-color:rgb(45, 74, 158);"></i>
                 </div>
-                <div class="gpa-max">จากทั้งหมด 6 หน่วยกิต</div>
+                <div class="gpa-max">จากทั้งหมด 0 หน่วยกิต</div>
             </div>
         </div>
 
@@ -99,10 +99,10 @@
             <div class="gpa-content">
                 <div class="gpa-label">รายวิชาที่ผ่าน</div>
                 <div class="gpa-value-with-icon">
-                    <span class="gpa-value">0</span>
+                    <span class="gpa-value" id="credit_pass_text">0</span>
                     <i class="far fa-check-circle" style="font-size: 30px; margin-left:50; font-weight: lighter; background-color: rgb(96, 218, 110);"></i>
                 </div>
-                <div class="gpa-max">จากทั้งหมด 6 วิชา</div>
+                <div class="gpa-max">จากทั้งหมด <span id="credit_courses">0</span> วิชา</div>
             </div>
         </div>
 
@@ -110,10 +110,10 @@
             <div class="gpa-content">
                 <div class="gpa-label">รายวิชาที่ตก</div>
                 <div class="gpa-value-with-icon">
-                    <span class="gpa-value">6</span>
+                    <span class="gpa-value" id="credit_fail_text">0</span>
                     <i class="far fa-times-circle" style="font-size: 30px; margin-left:50; font-weight: lighter; background-color: rgb(255, 61, 61);"></i>
                 </div>
-                <div class="gpa-max">จากทั้งหมด 6 หน่วยกิต</div>
+                <div class="gpa-max">จากทั้งหมด <span id="credit_courses">0</span> วิชา</div>
             </div>
         </div>
     </div>

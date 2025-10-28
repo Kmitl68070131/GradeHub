@@ -1,5 +1,24 @@
-// ==================== Courses Page ====================
 let data = [];
+
+// เรียกใช้เมื่อโหลดหน้า
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded');
+
+    const container = document.getElementById('container');
+    if (container) {
+        console.log('Container found, initializing...');
+        loadData(); // โหลดข้อมูลที่เก็บไว้
+        showList(); // แสดงข้อมูล
+        const scoreInput = document.getElementById('txtScore');
+        if (scoreInput) {
+            scoreInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    AddCourse();
+                }
+            });
+        }
+    }
+});
 
 // โหลดข้อมูลจาก localStorage เมื่อเริ่มต้น
 function loadData() {
@@ -7,14 +26,19 @@ function loadData() {
     if (saved) {
         data = JSON.parse(saved);
         console.log('Data loaded from localStorage:', data);
+        calculateStats(); // คำนวณสถิติหลังโหลดข้อมูล
+        updateDashboard(); // อัพเดตแดชบอร์ด
+        showList(); // แสดงรายการ
     }
 }
+
 
 // บันทึกข้อมูลลง localStorage
 function saveData() {
     localStorage.setItem('coursesData', JSON.stringify(data));
     console.log('Data saved to localStorage');
 }
+
 
 function getGrade(score) {
     if (score >= 80) return { grade: 'A', color: '#10b981' };
@@ -27,13 +51,30 @@ function getGrade(score) {
     return { grade: 'F', color: '#ef4444' };
 }
 
+let credit_courses = 0;
+let credit_pass = 0;
+let credit_fail = 0;
+
+function calculateStats() {
+    credit_courses = data.length;
+    credit_pass = data.filter(item => item.grade !== 'F').length;
+    credit_fail = data.filter(item => item.grade === 'F').length;
+    console.log("ทั้งหมด:", credit_courses, "ผ่าน:", credit_pass, "ตก:", credit_fail);
+}
+
+
+
+function updateDashboard() {
+    document.querySelectorAll('#credit_courses_text').forEach(el => el.innerText = credit_courses);
+    document.getElementById('credit_pass_text').innerText = credit_pass;
+    document.getElementById('credit_fail_text').innerText = credit_fail;
+}
+
 function AddCourse() {
     console.log('AddCourse called');
-    
     const nameInput = document.getElementById('txtName');
     const creditInput = document.getElementById('txtCredit');
     const scoreInput = document.getElementById('txtScore');
-    
     if (!nameInput || !creditInput || !scoreInput) {
         console.error('Elements not found!');
         return;
@@ -42,29 +83,27 @@ function AddCourse() {
     const name = nameInput.value.trim();
     const credit = creditInput.value.trim();
     const score = scoreInput.value.trim();
-    
     console.log('Values:', name, credit, score);
-
+    
     if (name === '') {
         alert('กรุณากรอกชื่อรายวิชา');
         nameInput.focus();
         return;
     }
-
+    
     if (credit === '' || credit <= 0) {
         alert('กรุณากรอกหน่วยกิตที่ถูกต้อง');
         creditInput.focus();
         return;
     }
-
+    
     if (score === '' || score < 0 || score > 100) {
         alert('กรุณากรอกคะแนนที่ถูกต้อง (0-100)');
         scoreInput.focus();
         return;
     }
-
-    const gradeInfo = getGrade(parseFloat(score));
     
+    const gradeInfo = getGrade(parseFloat(score));
     const item = {
         id: Date.now(),
         name: name,
@@ -74,23 +113,36 @@ function AddCourse() {
         color: gradeInfo.color
     };
 
+    /*save data in pc*/
     data.push(item);
     saveData(); // บันทึกข้อมูล
     console.log('Data after push:', data);
-    
     showList();
+    calculateStats();
+    updateDashboard();
 
     nameInput.value = '';
     creditInput.value = '';
     scoreInput.value = '';
     nameInput.focus();
+
+    console.log("จำนวนวิชาทั้งหมด:", credit_courses ,"วิชา");
+}
+
+function remove(id) {
+    if (confirm('คุณต้องการลบรายวิชานี้หรือไม่?')) {
+        data = data.filter(item => item.id !== id);
+        saveData(); // บันทึกข้อมูลหลังลบ
+        showList();
+        calculateStats();
+        updateDashboard();
+        console.log("จำนวนวิชาทั้งหมด:", credit_courses,"วิชา");
+    }
 }
 
 function showList() {
     console.log('showList called, data length:', data.length);
-    
     const box = document.getElementById('container');
-    
     if (!box) {
         console.error('Container not found!');
         return;
@@ -129,45 +181,6 @@ function showList() {
             <button class="btn-delete" onclick="remove(${item.id})">ลบ</button>
         </div>
     `).join('');
-    
     console.log('List updated!');
 }
 
-function remove(id) {
-    if (confirm('คุณต้องการลบรายวิชานี้หรือไม่?')) {
-        data = data.filter(item => item.id !== id);
-        saveData(); // บันทึกข้อมูลหลังลบ
-        showList();
-    }
-}
-
-// ฟังก์ชันลบข้อมูลทั้งหมด (เผื่อต้องการใช้)
-function clearAllData() {
-    if (confirm('คุณต้องการลบข้อมูลทั้งหมดหรือไม่?')) {
-        data = [];
-        saveData();
-        showList();
-        alert('ลบข้อมูลทั้งหมดเรียบร้อยแล้ว');
-    }
-}
-
-// เรียกใช้เมื่อโหลดหน้า
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded');
-
-    const container = document.getElementById('container');
-    if (container) {
-        console.log('Container found, initializing...');
-        loadData(); // โหลดข้อมูลที่เก็บไว้
-        showList(); // แสดงข้อมูล
-        // กด Enter ในช่องคะแนนเพื่อเพิ่มรายวิชา
-        const scoreInput = document.getElementById('txtScore');
-        if (scoreInput) {
-            scoreInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    AddCourse();
-                }
-            });
-        }
-    }
-});
