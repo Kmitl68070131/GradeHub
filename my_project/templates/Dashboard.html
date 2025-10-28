@@ -76,8 +76,8 @@
         <div class="gpa-card fade-in-2">
             <div class="gpa-content">
                 <div class="gpa-label">GPA ปัจจุบัน</div>
-                <div class="gpa-value-with-icon">
-                    <span class="gpa-value">0</span>
+                <div class="gpa-value-with-icon" id="grade_GPA">
+                    <span class="gpa-value" id="grade">0</span>
                     <i class="fa fa-bar-chart" style="font-size: 30px; margin-left:50; font-weight: lighter; background-color:rgb(45, 74, 158);"></i>
                 </div>
                 <div class="gpa-max">จาก 4.00</div>
@@ -88,35 +88,34 @@
             <div class="gpa-content">
                 <div class="gpa-label">หน่วยกิตรวม</div>
                 <div class="gpa-value-with-icon">
-                    <span class="gpa-value">0</span>
+                    <span class="gpa-value" id="total_credits">0</span>
                     <i class="fa fa-calendar" style="font-size: 30px; margin-left:50; font-weight: lighter; background-color:rgb(45, 74, 158);"></i>
                 </div>
-                <div class="gpa-max">จากทั้งหมด 0 หน่วยกิต</div>
             </div>
         </div>
 
-        <div class="gpa-card fade-in-2">
-            <div class="gpa-content">
-                <div class="gpa-label">รายวิชาที่ผ่าน</div>
-                <div class="gpa-value-with-icon">
-                    <span class="gpa-value" id="credit_pass_text">0</span>
-                    <i class="far fa-check-circle" style="font-size: 30px; margin-left:50; font-weight: lighter; background-color: rgb(96, 218, 110);"></i>
-                </div>
-                <div class="gpa-max">จากทั้งหมด <span id="credit_courses">0</span> วิชา</div>
-            </div>
+<div class="gpa-card fade-in-2">
+    <div class="gpa-content">
+        <div class="gpa-label">รายวิชาที่ผ่าน</div>
+        <div class="gpa-value-with-icon">
+            <span class="gpa-value" id="credit_pass">0</span>
+            <i class="far fa-check-circle" style="font-size: 30px; margin-left:50; font-weight: lighter; background-color: rgb(96, 218, 110);"></i>
         </div>
-
-        <div class="gpa-card fade-in-2">
-            <div class="gpa-content">
-                <div class="gpa-label">รายวิชาที่ตก</div>
-                <div class="gpa-value-with-icon">
-                    <span class="gpa-value" id="credit_fail_text">0</span>
-                    <i class="far fa-times-circle" style="font-size: 30px; margin-left:50; font-weight: lighter; background-color: rgb(255, 61, 61);"></i>
-                </div>
-                <div class="gpa-max">จากทั้งหมด <span id="credit_courses">0</span> วิชา</div>
-            </div>
-        </div>
+        <div class="gpa-max">จากทั้งหมด <span id="total_courses">0</span> วิชา</div>
     </div>
 </div>
+
+<div class="gpa-card fade-in-2">
+    <div class="gpa-content">
+        <div class="gpa-label">รายวิชาที่ตก</div>
+        <div class="gpa-value-with-icon">
+            <span class="gpa-value" id="credit_fail">0</span>
+            <i class="far fa-times-circle" style="font-size: 30px; margin-left:50; font-weight: lighter; background-color: rgb(255, 61, 61);"></i>
+        </div>
+        <div class="gpa-max">จากทั้งหมด <span id="total_courses">0</span> วิชา</div>
+    </div>
+</div>
+
 </table>
+
 {% endblock %}
