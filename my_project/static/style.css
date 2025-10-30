@@ -45,7 +45,7 @@
     margin-top: 10%;
 }
 .container {
-    align-items: center;
+    align-items:center;
     display: flex;
     font-size:x-large;
 }
