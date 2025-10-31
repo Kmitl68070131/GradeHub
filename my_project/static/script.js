@@ -44,7 +44,7 @@ function saveData() {
 
 function getGrade(score) {
     if (score >= 80) return { grade: 'A', color: '#00ff5eff' };
-    if (score >= 75) return { grade: 'B+', color: '#9bfb00ff' };
+    if (score >= 75) return { grade: 'B+', color: '#c8ff00ff' };
     if (score >= 70) return { grade: 'B', color: '#0082dfff' };
     if (score >= 65) return { grade: 'C+', color: '#00e1ffff' };
     if (score >= 60) return { grade: 'C', color: '#ffd000ff' };
