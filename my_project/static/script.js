@@ -47,10 +47,10 @@ function getGrade(score) {
     if (score >= 75) return { grade: 'B+', color: '#c8ff00ff' };
     if (score >= 70) return { grade: 'B', color: '#0082dfff' };
     if (score >= 65) return { grade: 'C+', color: '#00e1ffff' };
-    if (score >= 60) return { grade: 'C', color: '#ffd000ff' };
+    if (score >= 60) return { grade: 'C', color: '#ffe100ff' };
     if (score >= 55) return { grade: 'D+', color: '#ff9500ff' };
-    if (score >= 50) return { grade: 'D', color: '#ff6a00ff' };
-    return { grade: 'F', color: '#ff0000ff' };
+    if (score >= 50) return { grade: 'D', color: '#ff2600ff' };
+    return { grade: 'F', color: '#8f0000ff' };
 }
 
 
