@@ -43,14 +43,14 @@ function saveData() {
 }
 
 function getGrade(score) {
-    if (score >= 80) return { grade: 'A', color: '#10b981' };
-    if (score >= 75) return { grade: 'B+', color: '#34d399' };
-    if (score >= 70) return { grade: 'B', color: '#3b82f6' };
-    if (score >= 65) return { grade: 'C+', color: '#60a5fa' };
-    if (score >= 60) return { grade: 'C', color: '#f59e0b' };
-    if (score >= 55) return { grade: 'D+', color: '#fb923c' };
-    if (score >= 50) return { grade: 'D', color: '#f97316' };
-    return { grade: 'F', color: '#ef4444' };
+    if (score >= 80) return { grade: 'A', color: '#00ff5eff' };
+    if (score >= 75) return { grade: 'B+', color: '#9bfb00ff' };
+    if (score >= 70) return { grade: 'B', color: '#0082dfff' };
+    if (score >= 65) return { grade: 'C+', color: '#00e1ffff' };
+    if (score >= 60) return { grade: 'C', color: '#ffd000ff' };
+    if (score >= 55) return { grade: 'D+', color: '#ff9500ff' };
+    if (score >= 50) return { grade: 'D', color: '#ff6a00ff' };
+    return { grade: 'F', color: '#ff0000ff' };
 }
 
 
