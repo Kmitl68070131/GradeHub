@@ -331,6 +331,9 @@ function addSimCourse() {
     showSimList();
     calculateSimResults(); 
 
+    // #4. เคลียร์ช่องกรอก
+    document.getElementById('sim_name').value = '';
+    document.getElementById('sim_credit').value = '';
 
 }
 
