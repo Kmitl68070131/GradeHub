@@ -260,7 +260,7 @@ function initDashboardPage() {
 let simData = [];
 
 // funtion โหลดหน้า simulation
-function simulationpage() {
+function loadSimulationPage() {
     const saved = localStorage.getItem('coursesData'); // ดึงข้อมูลจาก couses
     let currentGPAX = 0.0;
     let currentTotalCredits = 0;
@@ -283,7 +283,7 @@ function simulationpage() {
 }
 
 // function ไว้อัปเดตสถานะความเสี่ยง
-function riskstatus(elementId, gpa) {
+function updateRiskStatus(elementId, gpa) {
     const el = document.getElementById(elementId);
     if (!el) return;
 
@@ -294,10 +294,47 @@ function riskstatus(elementId, gpa) {
         el.innerText = 'ติดโปร';
         el.className = 'gpa-value status-warn';
     } else if (gpa < 1.5) {
-        el.innerText = 'เสี่ยงรีไทร์';
+        el.innerText = 'ติดโปรและเสี่ยงรีไทร์';
         el.className = 'gpa-value status-danger';
     }
 }
+
+// #ฟังก์ชันที่ทำงานตอน "แก้เลข" ในช่อง GPAX
+function updateCurrentStatusDisplay() {
+    // #อ่านค่าล่าสุดจากช่องกรอก
+    const manualGPAX = parseFloat(document.getElementById('sim_manual_gpax').value) || 0;
+    
+    // #อัปเดตการ์ด "สถานะความเสี่ยง"
+    updateRiskStatus('sim_risk_status', manualGPAX);
+    
+    // #คำนวณ "GPAX ใหม่" ทั้งหมดอีกรอบ
+    calculateSimResults(); 
+}
+
+// #ฟังก์ชันที่ทำงานตอนกดปุ่ม "เพิ่มวิชาจำลอง"
+function addSimCourse() {
+    // #1. อ่านค่าจากช่องกรอก
+    const name = document.getElementById('sim_name').value.trim();
+    const credit = parseInt(document.getElementById('sim_credit').value);
+    const grade = document.getElementById('sim_grade').value;
+
+    if (name === '' || isNaN(credit) || credit <= 0) {
+        alert('กรุณากรอกข้อมูลให้ถูกต้อง');
+        return;
+    }
+    
+    // #2. สร้าง object วิชานี้
+    const item = { id: Date.now(), name: name, credit: credit, grade: grade };
+    simData.push(item);
+    
+    // #3. สั่งให้มันโชว์ใน List และคำนวณใหม่
+    showSimList();
+    calculateSimResults(); 
+
+
+}
+
+
 
 // เริ่มต้นระบบ
 
