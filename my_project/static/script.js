@@ -4,11 +4,40 @@ let credit_courses = 0;
 let credit_pass = 0;
 let credit_fail = 0;
 
+// เรียกใช้เมื่อโหลดหน้า
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded');
+
+    const container = document.getElementById('container');
+    if (container) {
+        console.log('Container found, initializing...');
+        loadData(); // โหลดข้อมูลที่เก็บไว้ (จะเรียก showList() เองอยู่แล้ว)
+        
+        const scoreInput = document.getElementById('txtScore');
+        if (scoreInput) {
+            scoreInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    AddCourse();
+                }
+            });
+        }
+    }
+});
+
+// โหลดข้อมูลจาก localStorage เมื่อเริ่มต้น
 // โหลดข้อมูลจาก localStorage
 function loadData() {
     const saved = localStorage.getItem('coursesData');
     if (saved) {
         data = JSON.parse(saved);
+        console.log('Data loaded from localStorage:', data);
+        calculateStats(); // คำนวณสถิติหลังโหลดข้อมูล
+        updateDashboard(); // อัพเดตแดชบอร์ด
+        showList(); // แสดงรายการ
+    } else {
+        // ถ้าไม่มีข้อมูล ให้แสดง empty state
+        console.log('No saved data');
+        showList();
         console.log('Data loaded:', data);
         return true;
     }
@@ -107,6 +136,7 @@ function AddCourse() {
     saveData();
     calculateStats();
     showList();
+    updateDashboard();
 
     console.log('Data after push:', data);
     console.log("จำนวนวิชาทั้งหมด:", credit_courses, "วิชา");
@@ -124,6 +154,7 @@ function remove(id) {
         saveData();
         calculateStats();
         showList();
+        updateDashboard();
         console.log("จำนวนวิชาทั้งหมด:", credit_courses, "วิชา");
     }
 }
@@ -136,7 +167,7 @@ function showList() {
         console.error('Container not found!');
         return;
     }
-    
+
     box.innerHTML = '';
     
     if (data.length === 0) {
@@ -203,11 +234,10 @@ function initCoursesPage() {
 // อัปเดตข้อมูลใน Dashboard
 function updateDashboard() {
     console.log('Updating dashboard...');
-    
     // คำนวณหน่วยกิตรวมและ GPA
     let totalCredits = 0;
     let totalPoints = 0;
-    
+
     data.forEach(item => {
         totalCredits += item.credit;
         totalPoints += gradeToPoint(item.grade) * item.credit;
@@ -394,7 +424,6 @@ function calculateSimResults() {
 // เหลืออัพเดทตัว start, fucntion วางแผนความหน้าจะเป็น
 
 // เริ่มต้นระบบ
-
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded');
 
@@ -412,5 +441,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         }
+    }
+    // เช็คว่าเป็นหน้า Dashboard
+    const gradeElement = document.getElementById('grade');
+    if (gradeElement) {
+        console.log('Dashboard page found, initializing...');
+        initDashboardPage(); // เรียก function นี้
+    }
+    
+    // เช็คว่าเป็นหน้า Simulation
+    const simManualGPAX = document.getElementById('sim_manual_gpax');
+    if (simManualGPAX) {
+        console.log('Simulation page found, initializing...');
+        loadSimulationPage(); // เรียก function นี้
     }
 });
