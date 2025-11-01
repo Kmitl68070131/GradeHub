@@ -293,7 +293,7 @@ function updateRiskStatus(elementId, gpa) {
     } else if (1.5 <= gpa < 2) {
         el.innerText = 'ติดโปร';
         el.className = 'gpa-value status-warn';
-    } else if (gpa < 1.5) {
+    } else {
         el.innerText = 'ติดโปรและเสี่ยงรีไทร์';
         el.className = 'gpa-value status-danger';
     }
