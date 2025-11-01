@@ -256,6 +256,33 @@ function initDashboardPage() {
     updateDashboard();
 }
 
+// ไว้เก็บตัวแปลวิชาจำลองนะจ้ะ
+let simData = [];
+
+// funtion โหลดหน้า simulation
+function simulationpage() {
+    const saved = localStorage.getItem('coursesData'); // ดึงข้อมูลจาก couses
+    let currentGPAX = 0;
+    let currentTotalCredits = 0;
+    if (saved) {
+        const localData = JSON.parse(saved);
+        let currentTotalPoints = 0;
+        localData.forEach(item => {
+            currentTotalCredits += item.credit;
+            currentTotalPoints += gradeToPoint(item.grade) * item.credit;
+        });
+        currentGPAX = currentTotalCredits > 0 ? (currentTotalPoints / currentTotalCredits) : 0.0;
+    }
+    
+    // #ยัดค่าที่คำนวณได้ ไปใส่ใน "ช่องกรอก"
+    document.getElementById('sim_manual_gpax').value = currentGPAX.toFixed(2);
+    document.getElementById('sim_manual_credits').value = currentTotalCredits;
+
+    // #เรียกฟังก์ชันข้างล่างนี้เพื่ออัปเดตหน้าจอ
+    updateCurrentStatusDisplay(); 
+}
+
+
 // เริ่มต้นระบบ
 
 document.addEventListener('DOMContentLoaded', function() {
