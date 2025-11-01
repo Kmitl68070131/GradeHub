@@ -397,14 +397,20 @@ function calculateSimResults() {
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded');
-    // ตรวจสอบว่าอยู่หน้าไหน
+
+    // เช็คว่าเป็นหน้า Courses
     const container = document.getElementById('container');
-    const gradeElement = document.getElementById('grade');
     if (container) {
-        // อยู่หน้า Courses
-        initCoursesPage();
-    } else if (gradeElement) {
-        // อยู่หน้า Dashboard
-        initDashboardPage();
+        console.log('Courses page found, initializing...');
+        loadData(); 
+        
+        const scoreInput = document.getElementById('txtScore');
+        if (scoreInput) {
+            scoreInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    AddCourse();
+                }
+            });
+        }
     }
 });
