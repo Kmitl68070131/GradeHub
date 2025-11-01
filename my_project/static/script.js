@@ -282,6 +282,22 @@ function simulationpage() {
     updateCurrentStatusDisplay(); 
 }
 
+// function ไว้อัปเดตสถานะความเสี่ยง
+function riskstatus(elementId, gpa) {
+    const el = document.getElementById(elementId);
+    if (!el) return;
+
+    if (gpa >= 2.00) {
+        el.innerText = 'ปลอดภัย';
+        el.className = 'gpa-value status-safe';
+    } else if (gpa < 2) {
+        el.innerText = 'ติดโปร';
+        el.className = 'gpa-value status-warn';
+    } else if (gpa < 1.5) {
+        el.innerText = 'เสี่ยงรีไทร์';
+        el.className = 'gpa-value status-danger';
+    }
+}
 
 // เริ่มต้นระบบ
 
