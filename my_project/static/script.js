@@ -290,7 +290,7 @@ function updateRiskStatus(elementId, gpa) {
     if (gpa >= 2.00) {
         el.innerText = 'ปลอดภัย';
         el.className = 'gpa-value status-safe';
-    } else if (gpa < 2) {
+    } else if (1.5 <= gpa < 2) {
         el.innerText = 'ติดโปร';
         el.className = 'gpa-value status-warn';
     } else if (gpa < 1.5) {
