@@ -262,7 +262,7 @@ let simData = [];
 // funtion โหลดหน้า simulation
 function simulationpage() {
     const saved = localStorage.getItem('coursesData'); // ดึงข้อมูลจาก couses
-    let currentGPAX = 0;
+    let currentGPAX = 0.0;
     let currentTotalCredits = 0;
     if (saved) {
         const localData = JSON.parse(saved);
