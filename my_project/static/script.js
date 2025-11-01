@@ -53,14 +53,14 @@ function saveData() {
 
 // คำนวณเกรดจากคะแนน
 function getGrade(score) {
-    if (score >= 80) return { grade: 'A', color: '#07ff28ff' };
-    if (score >= 75) return { grade: 'B+', color: '#a2fa00ff' };
-    if (score >= 70) return { grade: 'B', color: '#e5ff00ff' };
-    if (score >= 65) return { grade: 'C+', color: '#ebdf37ff' };
-    if (score >= 60) return { grade: 'C', color: '#d9ff00ff' };
-    if (score >= 55) return { grade: 'D+', color: '#ffa600ff' };
-    if (score >= 50) return { grade: 'D', color: '#fd7b01ff' };
-    return { grade: 'F', color: '#ff0000ff' };
+    if (score >= 80) return { grade: 'A', color: '#4be173ff' };
+    if (score >= 75) return { grade: 'B+', color: '#a3df62ff' };
+    if (score >= 70) return { grade: 'B', color: '#c1e35bff' };
+    if (score >= 65) return { grade: 'C+', color: '#e8eb37ff' };
+    if (score >= 60) return { grade: 'C', color: '#ffe23cff' };
+    if (score >= 55) return { grade: 'D+', color: '#ffa02cff' };
+    if (score >= 50) return { grade: 'D', color: '#e87c2fff' };
+    return { grade: 'F', color: '#c52121ff' };
 }
 
 // แปลงเกรดเป็นคะแนน GPA
