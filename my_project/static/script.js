@@ -290,10 +290,10 @@ function updateRiskStatus(elementId, gpa) {
     if (gpa >= 2.00) {
         el.innerText = 'ปลอดภัย';
         el.className = 'gpa-value status-safe';
-    } else if (gpa < 2) {
+    } else if (1.5 <= gpa < 2) {
         el.innerText = 'ติดโปร';
         el.className = 'gpa-value status-warn';
-    } else if (gpa < 1.5) {
+    } else {
         el.innerText = 'ติดโปรและเสี่ยงรีไทร์';
         el.className = 'gpa-value status-danger';
     }
@@ -355,7 +355,42 @@ function showSimList() {
     `).join('');
 }
 
+// ฟังก์ชันลบวิชาจำลอง
+function removeSimCourse(id) {
+    simData = simData.filter(item => item.id !== id); 
+    showSimList(); // #โชว์ List ใหม่
+    calculateSimResults(); // #คำนวณเกรดใหม่
+}
 
+// ฟังก์ชันคำนวณ GPS และ GPAX ใหม่
+function calculateSimResults() {
+    // #อ่านค่าจาก "ช่องกรอก GPAX ปัจจุบัน"
+    const manualGPAX = parseFloat(document.getElementById('sim_manual_gpax').value) || 0;
+    const manualCredits = parseInt(document.getElementById('sim_manual_credits').value) || 0;
+    const manualTotalPoints = manualGPAX * manualCredits; // #แต้มรวมเดิม
+
+    // คำนวณแต้มรวมของ "เทอมนี้" (จาก simData)
+    let simTotalPoints = 0;
+    let simTotalCredits = 0;
+    simData.forEach(item => {
+        simTotalCredits += item.credit;
+        simTotalPoints += gradeToPoint(item.grade) * item.credit;
+    });
+
+    const simGPS = simTotalCredits > 0 ? (simTotalPoints / simTotalCredits) : 0.0;
+
+    // GPAX ใหม่
+    const newTotalPoints = manualTotalPoints + simTotalPoints;
+    const newTotalCredits = manualCredits + simTotalCredits;
+    const newGPAX = newTotalCredits > 0 ? (newTotalPoints / newTotalCredits) : 0.0;
+
+    // ยัดผลลัพธ์กลับไปโชว์ใน HTML
+    document.getElementById('sim_gps_result').innerText = simGPS.toFixed(2);
+    document.getElementById('sim_semester_credits').innerText = simTotalCredits;
+    document.getElementById('sim_new_gpax_result').innerText = newGPAX.toFixed(2);
+    document.getElementById('sim_new_total_credits').innerText = newTotalCredits;
+    updateRiskStatus('sim_new_risk_status', newGPAX); 
+}
 
 // เริ่มต้นระบบ
 
