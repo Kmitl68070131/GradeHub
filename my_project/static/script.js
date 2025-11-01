@@ -334,6 +334,24 @@ function addSimCourse() {
 
 }
 
+// ฟังก์ชันแสดงรายการวิชาจำลอง
+function showSimList() {
+    const box = document.getElementById('sim_course_list_container');
+    if (simData.length === 0) {
+        box.innerHTML = '<p style="color: #999; text-align: center;">ยังไม่มีวิชาจำลอง...</p>';
+        return;
+    }
+    // สร้าง HTML จากอาเรย์ simData
+    box.innerHTML = simData.map(item => `
+        <div class="item">
+            <div class="name"><div class="label">ชื่อ</div><div class="value">${item.name}</div></div>
+            <div class="credit"><div class="label">หน่วยกิต</div><div class="value">${item.credit}</div></div>
+            <div class="point"><div class="label">เกรด</div><div class="value">${item.grade}</div></div>
+            <button class="btn-delete" onclick="removeSimCourse(${item.id})">ลบ</button>
+        </div>
+    `).join('');
+}
+
 
 
 // เริ่มต้นระบบ
