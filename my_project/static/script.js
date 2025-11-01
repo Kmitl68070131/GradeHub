@@ -391,6 +391,7 @@ function calculateSimResults() {
     document.getElementById('sim_new_total_credits').innerText = newTotalCredits;
     updateRiskStatus('sim_new_risk_status', newGPAX); 
 }
+// เหลืออัพเดทตัว start, fucntion วางแผนความหน้าจะเป็น
 
 // เริ่มต้นระบบ
 
