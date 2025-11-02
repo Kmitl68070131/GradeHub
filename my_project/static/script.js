@@ -421,7 +421,52 @@ function calculateSimResults() {
     document.getElementById('sim_new_total_credits').innerText = newTotalCredits;
     updateRiskStatus('sim_new_risk_status', newGPAX); 
 }
-// เหลืออัพเดทตัว start, fucntion วางแผนความหน้าจะเป็น
+
+// #ฟังก์ชันคำนวณเป้าหมายระยะยาว (เกียรตินิยม)
+function calculateLongTermGoal() {
+    // #1. อ่านค่าจากช่องเป้าหมาย
+    const targetGPAX = parseFloat(document.getElementById('goal_target_gpax').value);
+    const remainingCredits = parseInt(document.getElementById('goal_remaining_credits').value);
+
+    if (isNaN(targetGPAX) || targetGPAX <= 0 || targetGPAX > 4) {
+        alert('กรุณากรอก GPAX เป้าหมายที่ถูกต้อง (0.01 - 4.00)');
+        return;
+    }
+    if (isNaN(remainingCredits) || remainingCredits <= 0) {
+        alert('กรุณากรอกหน่วยกิตที่เหลือที่ถูกต้อง');
+        return;
+    }
+
+    // #2. อ่านค่า "GPA ใหม่" (หลังจบเทอมนี้)
+    const currentNewGPAX = parseFloat(document.getElementById('sim_new_gpax_result').innerText) || 0;
+    const currentNewCredits = parseInt(document.getElementById('sim_new_total_credits').innerText) || 0;
+    const currentNewPoints = currentNewGPAX * currentNewCredits;
+    
+    // #3. คำนวณ
+    const finalTotalCredits = currentNewCredits + remainingCredits;
+    const requiredTotalPoints = targetGPAX * finalTotalCredits;
+    const requiredFuturePoints = requiredTotalPoints - currentNewPoints;
+    const requiredFutureGPA = requiredFuturePoints / remainingCredits; // เกรดต้องทำที่เหลือ
+
+    // #4. แสดงผล
+    const resultArea = document.querySelector('.goal-results'); 
+    const resultText = document.getElementById('goal_result_text');
+    resultArea.style.display = 'block'; // #เปิดกล่องผลลัพธ์
+
+    if (requiredFutureGPA > 4.0) {
+        resultText.innerHTML = `เป้าหมาย <strong class="status-danger">เป็นไปไม่ได้</strong> 
+            <br>คุณต้องทำเกรดเฉลี่ย <strong class="status-danger">${requiredFutureGPA.toFixed(2)}</strong> 
+            ใน <strong>${remainingCredits}</strong> หน่วยกิตที่เหลือ (มันเกิน 4.00)`;
+    } else if (requiredFutureGPA <= (currentNewGPAX < targetGPAX ? 0 : targetGPAX)) {
+         resultText.innerHTML = `เป้าหมาย <strong class="status-safe">สำเร็จแล้ว!</strong> 
+            <br>GPAX (หลังจบเทอมนี้) ของคุณคือ <strong>${currentNewGPAX.toFixed(2)}</strong> ซึ่งถึงเป้าหมาย <strong>${targetGPAX.toFixed(2)}</strong> แล้ว
+            <br>แค่เรียนให้ผ่านหมดใน <strong>${remainingCredits}</strong> หน่วยกิตที่เหลือก็พอ`;
+    } else {
+        resultText.innerHTML = `เป้าหมาย <strong class="status-safe">เป็นไปได้</strong> 
+            <br>คุณต้องทำเกรดเฉลี่ยอย่างน้อย <strong class="status-safe">${requiredFutureGPA.toFixed(2)}</strong> 
+            ใน <strong>${remainingCredits}</strong> หน่วยกิตที่เหลือ`;
+    }
+}
 
 // เริ่มต้นระบบ
 document.addEventListener('DOMContentLoaded', function() {
