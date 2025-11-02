@@ -65,11 +65,11 @@
 
 <div class="courses-content" style="background: #f0f3f8;">
     <h2 style="font-size: 20px; color: #2d4a9e;">สถานะปัจจุบันของคุณ</h2>
-    <p style="color: #666; margin-bottom: 20px;">ข้อมูลจะถูกดึงมาจากหน้า 'Courses' อัตโนมัติ แต่คุณสามารถแก้ไขตัวเลขเพื่อจำลองได้</p>
+    <p style="color: #666; margin-bottom: 20px;">ข้อมูลจะถูกดึงมาจากหน้า Courses โดยอัตโนมัติ แต่คุณสามารถแก้ไขตัวเลขเพื่อจำลองได้</p>
     
     <div class="add-courses-section">
         <div>
-            <label for="sim_manual_gpax" class="label" style="font-size: 16px; margin-bottom: 8px;">GPAX ปัจจุบัน:</label>
+            <label for="sim_manual_gpax" class="label" style="font-size: 16px; margin-bottom: 8px;">GPA ปัจจุบัน:</label>
             <input type="number" id="sim_manual_gpax" class="course-input" placeholder="GPAX (เช่น 2.75)" step="0.01" min="0" max="4" onchange="updateCurrentStatusDisplay()">
         </div>
         <div>
@@ -81,11 +81,92 @@
     <div class="gpa-container" style="margin-top: 10px; justify-content: flex-start;">
          <div class="gpa-card" style="width: 300px; padding: 25px; margin: 10px;">
             <div class="gpa-content">
-                <div class="gpa-label">สถานะความเสี่ยง (จากข้อมูลที่กรอก)</div>
+                <div class="gpa-label">สถานะความเสี่ยง (จากข้อมูลที่กรอกใน Courses)</div>
                 <span class="gpa-value" id="sim_risk_status" style="font-size: 36px;">-</span>
                 <div class="gpa-max">(เกณฑ์ < 2.00 = เสี่ยง)</div>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="courses-content">
+    <h2>จำลองเกรดเทอมนี้ (GPS)</h2>
+    <p style="color: #666; margin-bottom: 20px;">เพิ่มรายวิชาและเกรดที่คาดหวังในเทอมนี้ เพื่อดูผลกระทบ</p>
+    
+    <div id="add-courses-section" class="add-courses-section">
+        <div>
+            <input type="text" id="sim_name" class="course-input" placeholder="ชื่อรายวิชา (จำลอง)">
+        </div>
+        <div>
+            <input type="number" id="sim_credit" class="course-input" placeholder="หน่วยกิต" min="1">
+        </div>
+        <div>
+            <select id="sim_grade" class="course-input">
+                <option value="A">A (4.0)</option>
+                <option value="B+">B+ (3.5)</option>
+                <option value="B">B (3.0)</option>
+                <option value="C+">C+ (2.5)</option>
+                <option value="C">C (2.0)</option>
+                <option value="D+">D+ (1.5)</option>
+                <option value="D">D (1.0)</option>
+                <option value="F">F (0.0)</option>
+            </select>
+        </div>
+    </div>
+    <input type="button" class="add-course" style="width: auto; padding: 14px 25px;" value="เพิ่มวิชาจำลอง" onclick="addSimCourse()">
+
+    <div class="sim-results" style="margin-top: 20px; padding: 20px; background: #f9f9f9; border-radius: 12px; border: 1px solid #e0e0e0;">
+        <h3>ผลการจำลองเทอมนี้:</h3>
+        <div class="gpa-container" style="margin-top: 0; justify-content: flex-start;">
+            <div class="gpa-card" style="width: 300px; padding: 25px; margin: 10px;">
+                <div class="gpa-content">
+                    <div class="gpa-label">GPS (เกรดเทอมนี้)</div>
+                    <span class="gpa-value" id="sim_gps_result">0.00</span>
+                    <div class="gpa-max">จาก <span id="sim_semester_credits">0</span> หน่วยกิต</div>
+                </div>
+            </div>
+            <div class="gpa-card" style="width: 300px; padding: 25px; margin: 10px;">
+                <div class="gpa-content">
+                    <div class="gpa-label">GPA ใหม่ (หลังจบเทอมนี้)</div>
+                    <span class="gpa-value" id="sim_new_gpax_result">0.00</span>
+                    <div class="gpa-max">จาก <span id="sim_new_total_credits">0</span> หน่วยกิตรวม</div>
+                </div>
+            </div>
+             <div class="gpa-card" style="width: 300px; padding: 25px; margin: 10px;">
+                <div class="gpa-content">
+                    <div class="gpa-label">สถานะใหม่</div>
+                    <span class="gpa-value" id="sim_new_risk_status" style="font-size: 36px;">-</span>
+                    <div class="gpa-max">(เกณฑ์ < 2.00 = เสี่ยง)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="course-list" id="list">
+    <h2>รายการวิชาจำลอง (เทอมนี้)</h2>
+    <div id="sim_course_list_container">
+        <p style="color: #999; text-align: center;">ยังไม่มีวิชาจำลอง...</p>
+    </div>
+</div>
+
+<div class="courses-content">
+    <h2>วางแผนเป้าหมายระยะยาว (เช่น เกียรตินิยม)</h2>
+    <p style="color: #666; margin-bottom: 20px;">ใช้ข้อมูล GPAX ใหม่ (หลังจบเทอมนี้) จากการจำลองด้านบนเป็นตัวตั้งต้น</p>
+    
+    <div class="add-courses-section">
+        <div>
+            <input type="number" id="goal_target_gpax" class="course-input" placeholder="GPAX เป้าหมาย (เช่น 3.25)" min="0" max="4" step="0.01">
+        </div>
+        <div>
+            <input type="number" id="goal_remaining_credits" class="course-input" placeholder="หน่วยกิตที่เหลือทั้งหมด (หลังจบเทอมนี้)" min="0">
+        </div>
+    </div>
+    <input type="button" class="add-course" value="คำนวณความเป็นไปได้" onclick="calculateLongTermGoal()">
+
+    <div class="goal-results" style="margin-top: 20px; padding: 20px; background: #f9f9f9; border-radius: 12px; border: 1px solid #e0e0e0; display: none;">
+        <h3>ผลการประเมินเป้าหมาย:</h3>
+        <p id="goal_result_text"></p>
     </div>
 </div>
 
