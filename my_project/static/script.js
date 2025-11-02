@@ -394,7 +394,7 @@ function removeSimCourse(id) {
 
 // ฟังก์ชันคำนวณ GPS และ GPAX ใหม่
 function calculateSimResults() {
-    // #อ่านค่าจาก "ช่องกรอก GPAX ปัจจุบัน"
+    // อ่านค่าจาก "ช่องกรอก GPAX ปัจจุบัน"
     const manualGPAX = parseFloat(document.getElementById('sim_manual_gpax').value) || 0;
     const manualCredits = parseInt(document.getElementById('sim_manual_credits').value) || 0;
     const manualTotalPoints = manualGPAX * manualCredits; // #แต้มรวมเดิม
@@ -422,7 +422,7 @@ function calculateSimResults() {
     updateRiskStatus('sim_new_risk_status', newGPAX); 
 }
 
-// #ฟังก์ชันคำนวณเป้าหมายระยะยาว (เกียรตินิยม)
+// ฟังก์ชันคำนวณเป้าหมายระยะยาว (เกียรตินิยม)
 function calculateLongTermGoal() {
     // #1. อ่านค่าจากช่องเป้าหมาย
     const targetGPAX = parseFloat(document.getElementById('goal_target_gpax').value);
@@ -451,7 +451,7 @@ function calculateLongTermGoal() {
     // #4. แสดงผล
     const resultArea = document.querySelector('.goal-results'); 
     const resultText = document.getElementById('goal_result_text');
-    resultArea.style.display = 'block'; // #เปิดกล่องผลลัพธ์
+    resultArea.style.display = 'block'; // เปิดกล่องผลลัพธ์
 
     if (requiredFutureGPA > 4.0) {
         resultText.innerHTML = `เป้าหมาย <strong class="status-danger">เป็นไปไม่ได้</strong> 
