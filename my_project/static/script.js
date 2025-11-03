@@ -422,14 +422,13 @@ function calculateSimResults() {
     });
 
     const simGPS = simTotalCredits > 0 ? (simTotalPoints / simTotalCredits) : 0.0;
-
-
+    const newTotalPoints = manualTotalPoints + simTotalPoints;
+    const newTotalCredits = manualCredits + simTotalCredits;
     const newGPA = newTotalCredits > 0 ? (newTotalPoints / newTotalCredits) : 0.0;
 
     // ยัดผลลัพธ์กลับไปโชว์ใน HTML
     document.getElementById('sim_gps_result').innerText = simGPS.toFixed(2);
     document.getElementById('sim_semester_credits').innerText = simTotalCredits;
-
     document.getElementById('sim_new_gpa_result').innerText = newGPA.toFixed(2);
     document.getElementById('sim_new_total_credits').innerText = newTotalCredits;
     
