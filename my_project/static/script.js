@@ -292,7 +292,7 @@ let simData = [];
 // funtion โหลดหน้า simulation
 function loadSimulationPage() {
     const saved = localStorage.getItem('coursesData'); // ดึงข้อมูลจาก couses
-    let currentGPAX = 0.0;
+    let currentGPA = 0.0;
     let currentTotalCredits = 0;
     if (saved) {
         const localData = JSON.parse(saved);
@@ -301,11 +301,11 @@ function loadSimulationPage() {
             currentTotalCredits += item.credit;
             currentTotalPoints += gradeToPoint(item.grade) * item.credit;
         });
-        currentGPAX = currentTotalCredits > 0 ? (currentTotalPoints / currentTotalCredits) : 0.0;
+        currentGPA = currentTotalCredits > 0 ? (currentTotalPoints / currentTotalCredits) : 0.0;
     }
     
     // #ยัดค่าที่คำนวณได้ ไปใส่ใน "ช่องกรอก"
-    document.getElementById('sim_manual_gpax').value = currentGPAX.toFixed(2);
+    document.getElementById('sim_manual_gpa').value = currentGPA.toFixed(2);
     document.getElementById('sim_manual_credits').value = currentTotalCredits;
 
     // #เรียกฟังก์ชันข้างล่างนี้เพื่ออัปเดตหน้าจอ
@@ -313,31 +313,45 @@ function loadSimulationPage() {
 }
 
 // function ไว้อัปเดตสถานะความเสี่ยง
-function updateRiskStatus(elementId, gpa) {
+function updateRiskStatus(elementId, gpa, gps = 2.0) {
     const el = document.getElementById(elementId);
     if (!el) return;
 
-    if (gpa <= 1.00) {
-        el.innerText = 'เสี่ยงรีไทร์';
+    if (gpa < 1.00) {
+        el.innerText = 'รีไทร์';
         el.className = 'gpa-value status-danger';
-    } else if (gpa > 2.00) {
-        el.innerText = 'ปลอดภัย';
+    } else if (gpa < 2.00 && gps < 2.00) {
+        el.innerText = 'รีไทร์';
         el.className = 'gpa-value status-safe';
-    } else if (1.00 < gpa && gpa < 2.00) {
+    } else if (gpa < 1.50) {
+        el.innerText = 'เสี่ยงรีไทร์';
+        el.className = 'gpa-value status-warn';
+    } else if (gpa < 1.75) {
+        el.innerText = 'ติดโปร (เสี่ยงโปรซ้ำ)';
+        el.className = 'gpa-value status-warn'; // #สีเหลือง
+    } else if (gpa < 2.00) {
         el.innerText = 'ติดโปร';
         el.className = 'gpa-value status-warn';
+    } else if (gpa < 2.10) { 
+        el.innerText = 'ปลอดภัย (เฉียดโปร)';
+        el.className = 'gpa-value status-safe'; // #สีเขียว แต่ข้อความเตือน
+
+    //ปลอดภัย
+    } else {
+        el.innerText = 'ปลอดภัย';
+        el.className = 'gpa-value status-safe';
     }
 }
 
-// #ฟังก์ชันที่ทำงานตอน "แก้เลข" ในช่อง GPAX
+// #ฟังก์ชันที่ทำงานตอน "แก้เลข" ในช่อง GPA
 function updateCurrentStatusDisplay() {
     // #อ่านค่าล่าสุดจากช่องกรอก
-    const manualGPAX = parseFloat(document.getElementById('sim_manual_gpax').value) || 0;
+    const manualGPA = parseFloat(document.getElementById('sim_manual_gpa').value) || 0;
     
     // #อัปเดตการ์ด "สถานะความเสี่ยง"
-    updateRiskStatus('sim_risk_status', manualGPAX);
+    updateRiskStatus('sim_risk_status', manualGPA);
     
-    // #คำนวณ "GPAX ใหม่" ทั้งหมดอีกรอบ
+    // #คำนวณ "GPA ใหม่" ทั้งหมดอีกรอบ
     calculateSimResults(); 
 }
 
@@ -392,12 +406,12 @@ function removeSimCourse(id) {
     calculateSimResults(); // #คำนวณเกรดใหม่
 }
 
-// ฟังก์ชันคำนวณ GPS และ GPAX ใหม่
+// ฟังก์ชันคำนวณ GPS และ GPA ใหม่
 function calculateSimResults() {
-    // อ่านค่าจาก "ช่องกรอก GPAX ปัจจุบัน"
-    const manualGPAX = parseFloat(document.getElementById('sim_manual_gpax').value) || 0;
+    // อ่านค่าจาก "ช่องกรอก GPA ปัจจุบัน"
+    const manualGPA = parseFloat(document.getElementById('sim_manual_gpa').value) || 0;
     const manualCredits = parseInt(document.getElementById('sim_manual_credits').value) || 0;
-    const manualTotalPoints = manualGPAX * manualCredits; // #แต้มรวมเดิม
+    const manualTotalPoints = manualGPA * manualCredits; // #แต้มรวมเดิม
 
     // คำนวณแต้มรวมของ "เทอมนี้" (จาก simData)
     let simTotalPoints = 0;
@@ -417,19 +431,19 @@ function calculateSimResults() {
     // ยัดผลลัพธ์กลับไปโชว์ใน HTML
     document.getElementById('sim_gps_result').innerText = simGPS.toFixed(2);
     document.getElementById('sim_semester_credits').innerText = simTotalCredits;
-    document.getElementById('sim_new_gpax_result').innerText = newGPAX.toFixed(2);
+    document.getElementById('sim_new_gpa_result').innerText = newGPA.toFixed(2);
     document.getElementById('sim_new_total_credits').innerText = newTotalCredits;
-    updateRiskStatus('sim_new_risk_status', newGPAX); 
+    updateRiskStatus('sim_new_risk_status', newGPA, simGPS); 
 }
 
 // ฟังก์ชันคำนวณเป้าหมายระยะยาว (เกียรตินิยม)
 function calculateLongTermGoal() {
     // #1. อ่านค่าจากช่องเป้าหมาย
-    const targetGPAX = parseFloat(document.getElementById('goal_target_gpax').value);
+    const targetGPA = parseFloat(document.getElementById('goal_target_gpa').value);
     const remainingCredits = parseInt(document.getElementById('goal_remaining_credits').value);
 
-    if (isNaN(targetGPAX) || targetGPAX <= 0 || targetGPAX > 4) {
-        alert('กรุณากรอก GPAX เป้าหมายที่ถูกต้อง (0.01 - 4.00)');
+    if (isNaN(targetGPA) || targetGPA <= 0 || targetGPA > 4) {
+        alert('กรุณากรอก GPA เป้าหมายที่ถูกต้อง (0.01 - 4.00)');
         return;
     }
     if (isNaN(remainingCredits) || remainingCredits <= 0) {
@@ -438,13 +452,13 @@ function calculateLongTermGoal() {
     }
 
     // #2. อ่านค่า "GPA ใหม่" (หลังจบเทอมนี้)
-    const currentNewGPAX = parseFloat(document.getElementById('sim_new_gpax_result').innerText) || 0;
+    const currentNewGPA = parseFloat(document.getElementById('sim_new_gpa_result').innerText) || 0;
     const currentNewCredits = parseInt(document.getElementById('sim_new_total_credits').innerText) || 0;
-    const currentNewPoints = currentNewGPAX * currentNewCredits;
+    const currentNewPoints = currentNewGPA * currentNewCredits;
     
     // #3. คำนวณ
     const finalTotalCredits = currentNewCredits + remainingCredits;
-    const requiredTotalPoints = targetGPAX * finalTotalCredits;
+    const requiredTotalPoints = targetGPA * finalTotalCredits;
     const requiredFuturePoints = requiredTotalPoints - currentNewPoints;
     const requiredFutureGPA = requiredFuturePoints / remainingCredits; // เกรดต้องทำที่เหลือ
 
@@ -457,10 +471,10 @@ function calculateLongTermGoal() {
         resultText.innerHTML = `เป้าหมาย <strong class="status-danger">เป็นไปไม่ได้</strong> 
             <br>คุณต้องทำเกรดเฉลี่ย <strong class="status-danger">${requiredFutureGPA.toFixed(2)}</strong> 
             ใน <strong>${remainingCredits}</strong> หน่วยกิตที่เหลือ (มันเกิน 4.00)`;
-    } else if (requiredFutureGPA <= (currentNewGPAX < targetGPAX ? 0 : targetGPAX)) {
+    } else if (requiredFutureGPA <= 0) {
          resultText.innerHTML = `เป้าหมาย <strong class="status-safe">สำเร็จแล้ว!</strong> 
-            <br>GPAX (หลังจบเทอมนี้) ของคุณคือ <strong>${currentNewGPAX.toFixed(2)}</strong> ซึ่งถึงเป้าหมาย <strong>${targetGPAX.toFixed(2)}</strong> แล้ว
-            <br>แค่เรียนให้ผ่านหมดใน <strong>${remainingCredits}</strong> หน่วยกิตที่เหลือก็พอ`;
+            <br>GPA (หลังจบเทอมนี้) ของคุณคือ <strong>${currentNewGPA.toFixed(2)}</strong> ซึ่งสูงกว่าเป้าหมาย <strong>${targetGPA.toFixed(2)}</strong> แล้ว
+            <br>แค่เรียนให้ผ่านหมด (เกรด D ขึ้นไป) ใน <strong>${remainingCredits}</strong> หน่วยกิตที่เหลือก็พอ`;
     } else {
         resultText.innerHTML = `เป้าหมาย <strong class="status-safe">เป็นไปได้</strong> 
             <br>คุณต้องทำเกรดเฉลี่ยอย่างน้อย <strong class="status-safe">${requiredFutureGPA.toFixed(2)}</strong> 
@@ -495,8 +509,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // เช็คว่าเป็นหน้า Simulation
-    const simManualGPAX = document.getElementById('sim_manual_gpax');
-    if (simManualGPAX) {
+    const simManualGPA = document.getElementById('sim_manual_gpa');
+    if (simManualGPA) {
         console.log('Simulation page found, initializing...');
         loadSimulationPage(); // เรียก function นี้
     }
