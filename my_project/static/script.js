@@ -462,28 +462,27 @@ function calculateLongTermGoal() {
 }
 
 // เริ่มต้นระบบ
-// #ตัวสตาร์ท (อันใหม่ อันเดียว คลีนๆ)
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded');
 
-    // #เช็คว่าเป็นหน้า Courses
+    //เช็คว่าเป็นหน้า Courses
     const container = document.getElementById('container');
     if (container) {
         console.log('Courses page found, initializing...');
-        initCoursesPage(); // #เรียกฟังก์ชันที่เพื่อนมึงเขียนไว้
+        initCoursesPage();
     }
 
-    // #เช็คว่าเป็นหน้า Dashboard
+    //เช็คว่าเป็นหน้า Dashboard
     const gradeElement = document.getElementById('grade');
     if (gradeElement) {
         console.log('Dashboard page found, initializing...');
-        initDashboardPage(); // #เรียกฟังก์ชันที่เพื่อนมึงเขียนไว้
+        initDashboardPage();
     }
     
-    // #เช็คว่าเป็นหน้า Simulation
+    //เช็คว่าเป็นหน้า Simulation
     const simManualGPA = document.getElementById('sim_manual_gpa');
     if (simManualGPA) {
         console.log('Simulation page found, initializing...');
-        loadSimulationPage(); // #เรียกฟังก์ชันที่มึงเขียนไว้
+        loadSimulationPage();
     }
 });
