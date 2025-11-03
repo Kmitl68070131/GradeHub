@@ -317,15 +317,15 @@ function updateRiskStatus(elementId, gpa) {
     const el = document.getElementById(elementId);
     if (!el) return;
 
-    if (gpa >= 2.00) {
+    if (gpa <= 1.00) {
+        el.innerText = 'เสี่ยงรีไทร์';
+        el.className = 'gpa-value status-danger';
+    } else if (gpa > 2.00) {
         el.innerText = 'ปลอดภัย';
         el.className = 'gpa-value status-safe';
-    } else if (1.5 <= gpa < 2) {
+    } else if (1.00 < gpa && gpa < 2.00) {
         el.innerText = 'ติดโปร';
         el.className = 'gpa-value status-warn';
-    } else {
-        el.innerText = 'ติดโปรและเสี่ยงรีไทร์';
-        el.className = 'gpa-value status-danger';
     }
 }
 
