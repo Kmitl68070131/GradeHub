@@ -327,13 +327,13 @@ function updateRiskStatus(elementId, gpa, gps = 2.0) {
         el.innerText = 'เสี่ยงรีไทร์';
         el.className = 'gpa-value status-warn';
     } else if (gpa < 1.75) {
-        el.innerText = 'ติดโปร (เสี่ยงโปรซ้ำ)';
+        el.innerText = 'ติดโปร';
         el.className = 'gpa-value status-warn'; // #สีเหลือง
     } else if (gpa < 2.00) {
         el.innerText = 'ติดโปร';
         el.className = 'gpa-value status-warn';
     } else if (gpa < 2.10) { 
-        el.innerText = 'ปลอดภัย (เฉียดโปร)';
+        el.innerText = 'ปลอดภัย';
         el.className = 'gpa-value status-safe'; // #สีเขียว แต่ข้อความเตือน
 
     //ปลอดภัย
