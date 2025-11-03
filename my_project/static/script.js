@@ -323,21 +323,21 @@ function updateRiskStatus(elementId, gpa, gps = 2.0) {
     }
 }
 
-// #ฟังก์ชันที่ทำงานตอน "แก้เลข" ในช่อง GPA
+// ฟังก์ชันที่ทำงานตอน "แก้เลข" ในช่อง GPA
 function updateCurrentStatusDisplay() {
-    // #อ่านค่าล่าสุดจากช่องกรอก
+    // อ่านค่าล่าสุดจากช่องกรอก
     const manualGPA = parseFloat(document.getElementById('sim_manual_gpa').value) || 0;
     
-    // #อัปเดตการ์ด "สถานะความเสี่ยง"
+    // อัปเดตการ์ด "สถานะความเสี่ยง"
     updateRiskStatus('sim_risk_status', manualGPA);
     
     // #คำนวณ "GPA ใหม่" ทั้งหมดอีกรอบ
     calculateSimResults(); 
 }
 
-// #ฟังก์ชันที่ทำงานตอนกดปุ่ม "เพิ่มวิชาจำลอง"
+// ฟังก์ชันที่ทำงานตอนกดปุ่ม "เพิ่มวิชาจำลอง"
 function addSimCourse() {
-    // #1. อ่านค่าจากช่องกรอก
+    // 1. อ่านค่าจากช่องกรอก
     const name = document.getElementById('sim_name').value.trim();
     const credit = parseInt(document.getElementById('sim_credit').value);
     const grade = document.getElementById('sim_grade').value;
@@ -347,15 +347,15 @@ function addSimCourse() {
         return;
     }
     
-    // #2. สร้าง object วิชานี้
+    // 2. สร้าง object วิชานี้
     const item = { id: Date.now(), name: name, credit: credit, grade: grade };
     simData.push(item);
     
-    // #3. สั่งให้มันโชว์ใน List และคำนวณใหม่
+    // 3. สั่งให้มันโชว์ใน List และคำนวณใหม่
     showSimList();
     calculateSimResults(); 
 
-    // #4. เคลียร์ช่องกรอก
+    // 4. เคลียร์ช่องกรอก
     document.getElementById('sim_name').value = '';
     document.getElementById('sim_credit').value = '';
 
