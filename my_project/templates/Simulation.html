@@ -69,12 +69,12 @@
 
     <div class="add-courses-section">
         <div>
-            <label for="sim_manual_gpax" class="label" style="font-size: 16px; margin-bottom: 8px;">GPA ปัจจุบัน:</label>
-            <input type="number" id="sim_manual_gpax" class="course-input" placeholder="GPAX (เช่น 2.75)" step="0.01" min="0" max="4" onchange="updateCurrentStatusDisplay()">
+            <label for="sim_manual_gpa" class="label" style="font-size: 16px; margin-bottom: 8px;">GPA ปัจจุบัน:</label>
+            <input type="number" id="sim_manual_gpa" class="course-input" placeholder="GPAX (เช่น 2.75)" step="0.01" min="0" max="4" onchange="updateCurrentStatusDisplay()">
         </div>
         <div>
             <label for="sim_manual_credits" class="label" style="font-size: 16px; margin-bottom: 8px;">หน่วยกิตรวมปัจจุบัน:</label>
-            <input type="number" id="sim_manual_credits" class="course-input" placeholder="หน่วยกิต (เช่น 90)" min="0" onchange="updateCurrentStatusDisplay()">
+            <input type="number" id="sim_manual_credits" class="course-input" placeholder="หน่วยกิต (เช่น 3)" min="0" onchange="updateCurrentStatusDisplay()">
         </div>
     </div>
     
@@ -128,7 +128,7 @@
             <div class="gpa-card" style="width: 300px; padding: 25px; margin: 10px;">
                 <div class="gpa-content">
                     <div class="gpa-label">GPA ใหม่ (หลังจบเทอมนี้)</div>
-                    <span class="gpa-value" id="sim_new_gpax_result">0.00</span>
+                    <span class="gpa-value" id="sim_new_gpa_result">0.00</span>
                     <div class="gpa-max">จาก <span id="sim_new_total_credits">0</span> หน่วยกิตรวม</div>
                 </div>
             </div>
@@ -151,12 +151,12 @@
 </div>
 
 <div class="courses-content">
-    <h2>วางแผนเป้าหมายระยะยาว (เช่น เกียรตินิยม)</h2>
+    <h2>วางแผนเป้าหมายระยะยาว (เช่น เกียรตินิยม GPA 3.50)</h2>
     <p style="color: #666; margin-bottom: 20px;">ใช้ข้อมูล GPAX ใหม่ (หลังจบเทอมนี้) จากการจำลองด้านบนเป็นตัวตั้งต้น</p>
     
     <div class="add-courses-section">
         <div>
-            <input type="number" id="goal_target_gpax" class="course-input" placeholder="GPAX เป้าหมาย (เช่น 3.25)" min="0" max="4" step="0.01">
+            <input type="number" id="goal_target_gpa" class="course-input" placeholder="GPA เป้าหมาย (เช่น 3.25)" min="0" max="4" step="0.01">
         </div>
         <div>
             <input type="number" id="goal_remaining_credits" class="course-input" placeholder="หน่วยกิตที่เหลือทั้งหมด (หลังจบเทอมนี้)" min="0">
