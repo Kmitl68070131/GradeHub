@@ -322,7 +322,7 @@ function updateRiskStatus(elementId, gpa, gps = 2.0) {
         el.className = 'gpa-value status-danger';
     } else if (gpa < 2.00 && gps < 2.00) {
         el.innerText = 'รีไทร์';
-        el.className = 'gpa-value status-safe';
+        el.className = 'gpa-value status-danger';
     } else if (gpa < 1.50) {
         el.innerText = 'เสี่ยงรีไทร์';
         el.className = 'gpa-value status-warn';
@@ -423,16 +423,16 @@ function calculateSimResults() {
 
     const simGPS = simTotalCredits > 0 ? (simTotalPoints / simTotalCredits) : 0.0;
 
-    // GPAX ใหม่
-    const newTotalPoints = manualTotalPoints + simTotalPoints;
-    const newTotalCredits = manualCredits + simTotalCredits;
-    const newGPAX = newTotalCredits > 0 ? (newTotalPoints / newTotalCredits) : 0.0;
+
+    const newGPA = newTotalCredits > 0 ? (newTotalPoints / newTotalCredits) : 0.0;
 
     // ยัดผลลัพธ์กลับไปโชว์ใน HTML
     document.getElementById('sim_gps_result').innerText = simGPS.toFixed(2);
     document.getElementById('sim_semester_credits').innerText = simTotalCredits;
+
     document.getElementById('sim_new_gpa_result').innerText = newGPA.toFixed(2);
     document.getElementById('sim_new_total_credits').innerText = newTotalCredits;
+    
     updateRiskStatus('sim_new_risk_status', newGPA, simGPS); 
 }
 
