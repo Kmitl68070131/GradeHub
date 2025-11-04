@@ -4,7 +4,6 @@ let credit_courses = 0;
 let credit_pass = 0;
 let credit_fail = 0;
 
-// โหลดข้อมูลจาก localStorage เมื่อเริ่มต้น
 // โหลดข้อมูลจาก localStorage
 function loadData() {
     const saved = localStorage.getItem('coursesData');
@@ -31,6 +30,8 @@ function saveData() {
     console.log('Data saved to localStorage');
 }
 
+// ส่วนของหน้า COURSES (Courses Page)
+
 // คำนวณเกรดจากคะแนน
 function getGrade(score) {
     if (score >= 80) return { grade: 'A', color: '#4be173ff' };
@@ -42,30 +43,6 @@ function getGrade(score) {
     if (score >= 50) return { grade: 'D', color: '#e87c2fff' };
     return { grade: 'F', color: '#c52121ff' };
 }
-
-// แปลงเกรดเป็นคะแนน GPA
-function gradeToPoint(grade) {
-    switch (grade) {
-        case 'A': return 4.0;
-        case 'B+': return 3.5;
-        case 'B': return 3.0;
-        case 'C+': return 2.5;
-        case 'C': return 2.0;
-        case 'D+': return 1.5;
-        case 'D': return 1.0;
-        default: return 0.0;
-    }
-}
-
-// คำนวณสถิติ
-function calculateStats() {
-    credit_courses = data.length;
-    credit_pass = data.filter(item => item.grade !== 'F').length;
-    credit_fail = data.filter(item => item.grade === 'F').length;
-    console.log("ทั้งหมด:", credit_courses, "ผ่าน:", credit_pass, "ตก:", credit_fail);
-}
-
-// ส่วนของหน้า COURSES (Courses Page)
 
 // เพิ่มรายวิชาใหม่
 function AddCourse() {
@@ -211,6 +188,28 @@ function initCoursesPage() {
 
 // ส่วนของหน้า DASHBOARD (Dashboard Page)
 
+// แปลงเกรดเป็นคะแนน GPA
+function gradeToPoint(grade) {
+    switch (grade) {
+        case 'A': return 4.0;
+        case 'B+': return 3.5;
+        case 'B': return 3.0;
+        case 'C+': return 2.5;
+        case 'C': return 2.0;
+        case 'D+': return 1.5;
+        case 'D': return 1.0;
+        default: return 0.0;
+    }
+}
+
+// คำนวณสถิติ
+function calculateStats() {
+    credit_courses = data.length;
+    credit_pass = data.filter(item => item.grade !== 'F').length;
+    credit_fail = data.filter(item => item.grade === 'F').length;
+    console.log("ทั้งหมด:", credit_courses, "ผ่าน:", credit_pass, "ตก:", credit_fail);
+}
+
 // อัปเดตข้อมูลใน Dashboard
 function updateDashboard() {
     console.log('Updating dashboard...');
@@ -265,6 +264,8 @@ function initDashboardPage() {
     calculateStats();
     updateDashboard();
 }
+
+// ส่วนของหน้า  (Dashboard Page)
 
 // ไว้เก็บตัวแปลวิชาจำลองนะจ้ะ
 let simData = [];
